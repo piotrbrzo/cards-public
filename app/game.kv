@@ -1,0 +1,14 @@
+<Game>:
+    BoxLayout:
+        orientation: 'vertical'
+        GridLayout:
+            id: opponents
+            cols: 2
+        BoxLayout:
+            id: hand
+        Button:
+            id: b_button
+            text: root.bottom
+            size_hint_y: .2
+            on_release: root.bottom_button()
+            disabled: True

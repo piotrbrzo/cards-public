@@ -1,0 +1,10 @@
+.buildozer/
+bin/
+**/.idea/workspace.xml
+**.idea/tasks.xml
+**.idea/dictionaries
+.idea/
+jars/*.jar
+jars/.gradle/
+*.pyc
+venv/

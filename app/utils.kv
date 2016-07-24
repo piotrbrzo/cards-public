@@ -1,0 +1,12 @@
+<MyPopup@Popup>:
+    size_hint: .7, .6
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: root.text
+            text_size: self.size
+            valign: 'middle'
+        Button:
+            text: 'Close'
+            size_hint: 1, None
+            on_release: root.dismiss()

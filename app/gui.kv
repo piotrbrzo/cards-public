@@ -1,0 +1,93 @@
+<MyLayout@BoxLayout>:
+    orientation: 'vertical'
+
+<MyLabel@Label>:
+    text_size: self.size
+    valign: 'middle'
+    padding: 30, 30
+
+
+<MainMenu>:
+    MyLayout:
+        Button:
+            text: "Server"
+            on_release: app.ws_server()
+        Button:
+            text: "Network Client"
+            on_release: app.go('ws_client')
+        Button:
+            text: "Bluetooth Client"
+            on_release: app.bt_client()
+            disabled: not app.android
+        Button:
+            text: "About"
+            on_release: app.go('about')
+        Button:
+            text: "Exit"
+            on_release: app.stop()
+
+<Server>:
+    MyLayout:
+        Button:
+            size_hint_y: .2
+            text: "Start with " + str(root.num_connected) + " other players"
+            on_release: app.start()
+        Button:
+            id: bt_server
+            text: root.bt_text
+            size_hint_y: .2
+            on_release: app.bt_server()
+            disabled: not app.android
+        Button:
+            size_hint_y: .2
+            text: "Copy to clipboard: " + root.url
+            on_release: root.clipboard(root.url)
+        QRCodeWidget:
+            data: root.url
+
+<WSClient>:
+    MyLayout:
+        TextInput:
+            id: url
+            text: "localhost:8000"
+            font_size: 30
+        Button:
+            text: "Connect"
+            on_release: app.ws_client(root.ids.url.text)
+        Button:
+            text: "Scan QR code"
+            on_release: app.scan_qr()
+            disabled: not app.android
+
+<BTClient>:
+    MyLayout:
+        Button:
+            text: "Pair with other devices"
+            size_hint_y: .2
+            on_release: app.bt_settings()
+        MyLayout:
+            id: devices
+
+<BTDeviceButton>:
+    on_release: app.bt_connect(self.text)
+
+<About>:
+    MyLayout:
+        MyLabel:
+            text:
+                ("Card Game Software 0.1\n"
+                "[ref=https://brzozowski.uk]Piotr Brzozowski https://brzozowski.uk[/ref]")
+            markup: True
+            on_ref_press: root.open_link(args[1])
+        MyLabel:
+            text:
+                ("Vectorized Playing Cards 2.0 - [ref=http://sourceforge.net/projects/vector-cards/]"
+                "http://sourceforge.net/projects/vector-cards/[/ref]\n"
+                "Copyright 2015 - Chris Aguilar - [ref=mailto:conjurenation@gmail.com]conjurenation@gmail.com[/ref]\n"
+                "Licensed under LGPL 3 - "
+                "[ref=http://www.gnu.org/copyleft/lesser.html]http://www.gnu.org/copyleft/lesser.html[/ref]")
+            markup: True
+            on_ref_press: root.open_link(args[1])
+        Button:
+            text: "Back"
+            on_release: app.go_back()
